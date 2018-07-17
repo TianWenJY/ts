@@ -8,8 +8,9 @@ import Index from '../page/index/index.vue'
 import home from '../page/home/home.vue'
 import engine from '../page/engine/engine.vue'
 import setting from '../page/setting/setting.vue'
+import common from '../common/common.css'
 Vue.use(ElementUI)
-
+Vue.use(common)
 Vue.use(Router)
 
 

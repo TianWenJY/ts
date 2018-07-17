@@ -17,7 +17,7 @@
         <el-col :span="4"><div class="data_list"><span class="data_num">3</span> 停车收费</div></el-col>
       </el-row>
     </section>
-    <tendency :sevenDate='sevenDate' :sevenDay='sevenDay'></tendency>
+    <!--<tendency :sevenDate='sevenDate' :sevenDay='sevenDay'></tendency>-->
   </div>
 </template>
 
