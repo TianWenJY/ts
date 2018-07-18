@@ -1,15 +1,25 @@
 <template>
   <div class="login">
     <section>
-      <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="用户名" prop="user">
-          <el-input type="password" v-model="ruleForm2.user" auto-complete="off"></el-input>
+      <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2"  class="demo-ruleForm">
+        <el-row class="formTop">
+          <el-col :span="12"><div class="grid-content bg-purple-dark">账户密码登录</div></el-col>
+          <el-col :span="12"><div class="grid-content bg-purple-dark">短信快捷登录</div></el-col>
+        </el-row>
+        <el-form-item prop="user" style="margin-left: 0;">
+          <el-input type="password" v-model="ruleForm2.user" auto-complete="off"
+                    placeholder="手机号/用户名"></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="pass">
-          <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
+        <el-form-item prop="pass">
+          <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"
+                    placeholder="密码"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm2')">登录</el-button>
+          <el-row class="formTop">
+            <el-col :span="24">
+              <el-button style="width: 100%;" type="primary" @click="submitForm('ruleForm2')">登录</el-button>
+            </el-col>
+          </el-row>
         </el-form-item>
       </el-form>
     </section>
@@ -67,15 +77,15 @@
         },
         login() {
           this.$http.post(
-            'http://192.168.0.86:80/Store/Login/LG',
+            this.common.api+'Admin/Login/LG',
             {
               AdminName:this.ruleForm2.user,
               Password:this.ruleForm2.pass,
-              BigPlatform:21,
+              Platform:23,
               Mobile:13256219787
             },{emulateJSON:true}
           ).then(function(result){
-              console.log(result)
+              console.log(this.common.api)
             if(result.body.Status == 0) {
               this.$message({
                 type: 'success',
@@ -91,7 +101,7 @@
               return false;
             }
           }, function(result){
-            alert("fack");
+            alert(result);
           });
 
         }
@@ -104,28 +114,33 @@
      overflow: hidden;
      width: 100%;
      height: 100%;
-     background-image: url(../assets/images/login/bg.jpg);
+     background-image: url(../assets/images/login/bg.png);
      background-repeat: no-repeat;
      background-size: cover;
      position: relative;
      section {
-       height: 240px;
        width: 100%;
-       background-color: rgba(0, 0, 0, 0.4);
        position: absolute;
-       top: 30%;
+       top: 120px;
        text-align: center;
        -webkit-transition: height 0.4s, top 0.4s;
        transition: height 0.4s, top 0.4s;
        .demo-ruleForm {
-         height: 240px;
-         width: 350px;
+         height: 300px;
+         width: 400px;
+         padding: 30px 60px 0 60px;
+         box-sizing: border-box;
          position: absolute;
+         border-radius: 5px;
+         background: #fff;
          top: 0;
          right: 20%;
          padding-top: 40px;
          -webkit-transition: height 0.4s, width 0.4s, padding-top 0.4s;
          transition: height 0.4s, width 0.4s, padding-top 0.4s;
+         .formTop {
+           margin-bottom: 25px;
+         }
        }
      }
    }
