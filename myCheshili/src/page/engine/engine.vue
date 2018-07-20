@@ -159,6 +159,35 @@
         },
         handleCurrentChange(val) {
           console.log(`当前页: ${val}`);
+        },
+        GetDevice() {
+          this.$http.post(
+            this.url+'Login/LG',
+            {
+              // WToken: ,
+              Password:this.ruleForm2.pass,
+              Platform:23,
+              Mobile:13256219787
+            },{emulateJSON:true}
+          ).then(function(result){
+            if(result.body.Status == 0) {
+              this.$message({
+                type: 'success',
+                message: '登录成功'
+              });
+              this.$router.push('index')
+            }else {
+              this.$notify.error({
+                title: '错误',
+                message: '请输入正确的用户名密码',
+                offset: 100
+              });
+              return false;
+            }
+          }, function(result){
+            alert(result);
+          });
+
         }
       }
     }

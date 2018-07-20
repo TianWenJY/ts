@@ -58,8 +58,13 @@
         name: 'Index',
       computed: {
         defaultActive: function(){
-          return this.$route.path.replace('/', '');
+          return this.$route.path.replace('/index', '');
         }
+      },
+      created:function () {
+        this.aa()
+        alert(1)
+        this.$router.push('/');
       },
       methods: {
         handleOpen(key, keyPath) {
@@ -67,7 +72,15 @@
         },
         handleClose(key, keyPath) {
           console.log(key, keyPath);
-        }
+        },
+        aa() {
+            this.$alert('这是一段内容', '标题名称', {
+              confirmButtonText: '确定',
+              callback: action => {
+                this.$route.path.replace('/', '');
+              }
+            })
+          }
       }
     }
 </script>

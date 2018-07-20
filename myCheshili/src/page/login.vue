@@ -77,7 +77,7 @@
         },
         login() {
           this.$http.post(
-            this.common.api+'Admin/Login/LG',
+            this.url+'Login/LG',
             {
               AdminName:this.ruleForm2.user,
               Password:this.ruleForm2.pass,
@@ -85,7 +85,6 @@
               Mobile:13256219787
             },{emulateJSON:true}
           ).then(function(result){
-              console.log(this.common.api)
             if(result.body.Status == 0) {
               this.$message({
                 type: 'success',
