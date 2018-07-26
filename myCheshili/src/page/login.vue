@@ -86,6 +86,7 @@
             },{emulateJSON:true}
           ).then(function(result){
             if(result.body.Status == 0) {
+              this.setToken(result.body.Data.WToken)
               this.$message({
                 type: 'success',
                 message: '登录成功'

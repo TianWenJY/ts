@@ -12,29 +12,42 @@
             <el-tab-pane  class="table" name="first" label="用户管理">
                <el-table
              ref="multipleTable" border
-             :data="tableData3"
+             :data="deviceList"
              tooltip-effect="dark"
              style="width: 100%"
              @selection-change="handleSelectionChange">
              <el-table-column
                type="selection"
-               width="55">
+               >
              </el-table-column>
              <el-table-column
-               label="日期"
-               width="120">
-               <template slot-scope="scope">{{ scope.row.date }}</template>
+               label="设备标识"
+               width="180"
+               >
+               <template slot-scope="scope">{{ scope.row.DeviceNum }}</template>
              </el-table-column>
              <el-table-column
-               prop="name"
-               label="姓名"
-               width="120">
-             </el-table-column>
+                 prop="Channel"
+                 label="设备所属通道"
+                 width="180"
+                 >
+               </el-table-column>
              <el-table-column
-               prop="address"
-               label="地址"
-               show-overflow-tooltip>
-             </el-table-column>
+                 prop="InOrOut"
+                 label="设备进出类型"
+                 width="180"
+                 >
+               </el-table-column>
+               <el-table-column
+                   prop="Speak"
+                   label="设备语音播报内容"
+                   width="180">
+                 </el-table-column>
+               <el-table-column
+                   prop="AddTime"
+                   label="录入时间"
+                   >
+                 </el-table-column>
              <el-table-column label="操作">
                <template slot-scope="scope">
                  <el-button
@@ -50,11 +63,11 @@
               <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-                :current-page="currentPage4"
-                :page-sizes="[100, 200, 300, 400]"
-                :page-size="100"
+                :current-page="currentPage"
+                :page-sizes="[2, 4, 6, 8,10]"
+                :page-size="2"
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="400" style="margin-top:15px;">
+                :total='totalCount' style="margin-top:15px;">
               </el-pagination>
          </el-tab-pane>
          </el-tabs>
@@ -75,7 +88,16 @@
             </el-col>
             <el-col class="filterInput" >
               <el-col class="filterText">时间选择</el-col>
-              <el-input type="text" class="form-control" placeholder="请输入时间例如(2018-8-8)"></el-input>
+              <el-time-picker
+                class="form-control"
+                arrow-control
+                size=""
+                v-model="value3"
+                :picker-options="{
+                  selectableRange: '18:30:00 - 20:30:00'
+                  }"
+                placeholder="任意时间点">
+              </el-time-picker>
             </el-col>
             <el-col style="margin-bottom: 30px; margin-top: 20px;">
               <el-button class="btn btn-info filter  fr" style=" margin-left:15px; ">
@@ -96,49 +118,27 @@
       name: "engine",
       data() {
         return {
-          activeTag:'first',
-          currentPage1: 5,
-          currentPage2: 5,
-          currentPage3: 5,
-          currentPage4: 4,
-          tableData3: [{
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-08',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-06',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-07',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          },
-            {
-              date: '2016-05-07',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1518 弄'
-            }],
-          multipleSelection: []
+          activeTag: 'first',
+          token: this.getToken(),
+          Count:'',
+          value3:'',
+          deviceList: [],
+          totalCount:9,
+          currentPage: 1,
+          parameter : {
+            WToken:this.token,
+            N:"",
+            Rows:2
+          }
         }
       },
-
+      mounted(){
+        this.GetDevice({
+          WToken:this.token,
+          N:"",
+          Rows:2
+        });
+      },
       methods: {
         toggleSelection(rows) {
           if (rows) {
@@ -154,28 +154,35 @@
         },
         handleClick(tab, event) { //分页
           console.log(tab, event);
-        },      handleSizeChange(val) {
+        },
+        handleSizeChange(val) {
           console.log(`每页 ${val} 条`);
         },
         handleCurrentChange(val) {
           console.log(`当前页: ${val}`);
+          this.GetDevice({
+            WToken:this.token,
+            N:val,
+            Rows:2
+          });
         },
-        GetDevice() {
+        GetDevice(parameter) {
+          var _this = this;
           this.$http.post(
-            this.url+'Login/LG',
-            {
-              // WToken: ,
-              Password:this.ruleForm2.pass,
-              Platform:23,
-              Mobile:13256219787
-            },{emulateJSON:true}
+            this.url+'Device/GetDevice',
+            parameter
+           ,{emulateJSON:true}
           ).then(function(result){
             if(result.body.Status == 0) {
-              this.$message({
-                type: 'success',
-                message: '登录成功'
+              _this.deviceList = result.body.Data.Rows;
+              console.log(_this.totalCount)
+            }else if(result.body.Status == -1){
+              this.$notify.error({
+                title: '登录失效',
+                message: '将进入登录页面',
+                offset: 100
               });
-              this.$router.push('index')
+              this.$router.push('/');
             }else {
               this.$notify.error({
                 title: '错误',
@@ -192,7 +199,6 @@
       }
     }
 </script>
-
 <style lang="less">
   .filterBlock {
     margin-left: 30px;
@@ -257,6 +263,9 @@
   }
   .el-table th {
     background: #FAFAFA;
+  }
+  .el-date-editor.el-input, .el-date-editor.el-input__inner {
+     width: 100%;
   }
 
 </style>

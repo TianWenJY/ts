@@ -2,13 +2,13 @@
     <el-container class="myIndex">
       <el-header class="header">车势力公众平台</el-header>
       <el-container class="indexMain">
-         <el-aside width="240px" style="height: 100%; background:#545c64">
+         <el-aside width="240px" style="height: 100%; background: #2c3f4d;">
          <el-menu
         :default-active="defaultActive"
         class="el-menu-vertical-demo"
         @open="handleOpen"  router
         @close="handleClose"
-        background-color="#545c64"
+        background-color="#2c3f4d"
         text-color="#fff"
         active-text-color="#ffd04b">
         <el-submenu index="2">
@@ -62,9 +62,9 @@
         }
       },
       created:function () {
-        this.aa()
-        alert(1)
-        this.$router.push('/');
+        // this.aa()
+        // alert(1)
+        // this.$router.push('/');
       },
       methods: {
         handleOpen(key, keyPath) {
@@ -89,10 +89,14 @@
   .myIndex {
      height: 100%;
      .header {
-       background: #393D49;;
+       background: #2c3f4d;
      }
     .indexMain {
       height: 100%;
+    }
+    .el-main {
+      box-shadow: 0 0 10px #888 inset;
+      padding: 30px;
     }
   }
 </style>
