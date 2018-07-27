@@ -5,6 +5,7 @@
       <el-breadcrumb-item>活动管理</el-breadcrumb-item>
       <el-breadcrumb-item>活动列表</el-breadcrumb-item>
       <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+      <el-button type="primary" class="fr" @click="addDateEngine">添加设备</el-button>
     </el-breadcrumb>
     <el-row>
        <el-col :span="18">
@@ -69,6 +70,37 @@
                 layout="total, sizes, prev, pager, next, jumper"
                 :total='totalCount' style="margin-top:15px;">
               </el-pagination>
+
+              <el-dialog title="修改设备" :visible.sync="dialogFormVisible">
+                <el-form :model="selectTable">
+                  <el-form-item label="设备标识" :label-width="formLabelWidth">
+                    <el-input v-model="selectTable.DeviceNum" auto-complete="off"></el-input>
+                  </el-form-item>
+                  <el-form-item label="设备所属通道" :label-width="formLabelWidth">
+                    <el-input v-model="selectTable.Channel" auto-complete="off"></el-input>
+                  </el-form-item>
+                  <el-form-item label="设备显示内容 m," :label-width="formLabelWidth">
+                    <el-input v-model="selectTable.View" auto-complete="off"></el-input>
+                  </el-form-item>
+                  <el-form-item label="设备进出类型" :label-width="formLabelWidth">
+                    <el-select v-model="selectTable.InOrOut" placeholder="请选择设备进出类型">
+                      <el-option label="设备进入" value="0"></el-option>
+                      <el-option label="设备离开" value="1"></el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="语音播报内容" :label-width="formLabelWidth">
+                    <el-input type="textarea"  v-model="selectTable.Speak"
+                              auto-complete="off"
+                              :autosize='{ minRows: 2, maxRows: 6 }'
+                              placeholder="请输入语音播报内容"
+                    ></el-input>
+                  </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                  <el-button @click="dialogFormVisible = false">取 消</el-button>
+                  <el-button type="primary" @click="upDateEngine(selectTable.ID)">确 定</el-button>
+                </div>
+              </el-dialog>
          </el-tab-pane>
          </el-tabs>
 
@@ -121,8 +153,12 @@
           activeTag: 'first',
           token: this.getToken(),
           Count:'',
+          WToken:this.token,
           value3:'',
+          selectTable:{},
+          dialogFormVisible:false,
           deviceList: [],
+          formLabelWidth:'120px',
           totalCount:9,
           currentPage: 1,
           parameter : {
@@ -195,6 +231,59 @@
             alert(result);
           });
 
+        },
+        handleEdit(index, row) {
+          console.log(index)
+          console.log(row)
+          this.selectTable = row;
+          // this.address.address = row.address;
+          this.dialogFormVisible = true;
+          // this.selectedCategory = row.category.split('/');
+          // if (!this.categoryOptions.length) {
+          //   this.getCategory();
+          // }
+        },
+        upDateEngine(id) {
+          this.$http.post(
+            this.url+'Device/EditDevice',
+            {
+              WToken: this.token,
+              ID: id,
+              DeviceNum: this.selectTable.DeviceNum,
+              Channel: this.selectTable.Channel,
+              InOrOut: this.selectTable.InOrOut,
+              Speak: this.selectTable.Speak,
+              View: this.selectTable.View
+            }
+            ,{emulateJSON:true}
+          ).then(function(result){
+            if(result.body.Status == 0) {
+              this.$message({
+                type: 'success',
+                message: '更新当前设备成功'
+              });
+              this.GetDevice();
+            }else if(result.body.Status == -1){
+              this.$notify.error({
+                title: '登录失效',
+                message: '将进入登录页面',
+                offset: 100
+              });
+              // this.$router.push('/');
+            }else {
+              this.$notify.error({
+                title: '错误',
+                message: '更新失败',
+                offset: 100
+              });
+              return false;
+            }
+          }, function(result){
+            alert(result);
+          });
+        },
+        addDateEngine() {
+          this.$router.push({ path: 'addEngine'})
         }
       }
     }
@@ -266,6 +355,9 @@
   }
   .el-date-editor.el-input, .el-date-editor.el-input__inner {
      width: 100%;
+  }
+  .el-dialog__title {
+    font-weight: 700;
   }
 
 </style>

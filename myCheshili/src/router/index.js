@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import Index from '../page/index/index.vue'
 import home from '../page/home/home.vue'
 import engine from '../page/engine/engine.vue'
+import addEngine from '../page/addEngine.vue'
 import setting from '../page/setting/setting.vue'
 import common from '../common/common.css'
 import commonJs from '../common/common.js'
@@ -37,7 +38,11 @@ export default new Router({
       path: '/engine',
       component: engine,
       meta: ['进出车记录', '进车记录'],
-    }
+    },{
+        path: '/addEngine',
+        component: addEngine,
+        meta: ['添加设备'],
+      }
     ]
     }
   ]
