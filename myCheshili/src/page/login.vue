@@ -81,7 +81,7 @@
             {
               AdminName:this.ruleForm2.user,
               Password:this.ruleForm2.pass,
-              Platform:23,
+              BigPlatform:21,
               Mobile:13256219787
             },{emulateJSON:true}
           ).then(function(result){

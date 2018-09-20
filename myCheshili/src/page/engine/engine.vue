@@ -7,8 +7,46 @@
       <el-breadcrumb-item>活动详情</el-breadcrumb-item>
       <el-button type="primary" class="fr" @click="addDateEngine">添加设备</el-button>
     </el-breadcrumb>
+        <el-row>
+      <el-col :span="24" class="filterBlock">
+          <el-col class="filterHeader">
+            <i class="el-icon-search" style="color: #2D4FA7; font-size: 24px; margin-right: 2px;"></i> 筛选
+          </el-col>
+          <div class="filterContent">
+            <el-col class="filterInput">
+              <el-col class="filterText">查询关键字</el-col>
+              <el-input type="text" class="form-control" placeholder="请输入关键字"></el-input>
+            </el-col>
+            <el-col  class="filterInput" >
+              <el-col class="filterText">手机号</el-col>
+              <el-input type="text" class="form-control" placeholder="请输入手机号"></el-input>
+            </el-col>
+            <el-col class="filterInput" >
+              <el-col class="filterText">时间选择</el-col>
+              <el-time-picker
+                class="form-control"
+                arrow-control
+                size=""
+                v-model="value3"
+                :picker-options="{
+                  selectableRange: '18:30:00 - 20:30:00'
+                  }"
+                placeholder="任意时间点">
+              </el-time-picker>
+            </el-col>
+            <el-col style="margin-bottom: 30px; margin-top: 20px;">
+              <el-button class="btn btn-info filter  fr" style=" margin-left:15px; ">
+                <span class="glyphicon glyphicon-filter">筛选</span>
+              </el-button>
+              <el-button class="btn btn-info filter fr">
+                <span class="glyphicon glyphicon-filter">重置</span>
+              </el-button>
+            </el-col>
+          </div>
+      </el-col>
+    </el-row>
     <el-row>
-       <el-col :span="18">
+       <el-col :span="24">
          <el-tabs v-model="activeTag" type="card" @tab-click="handleClick">
             <el-tab-pane  class="table" name="first" label="用户管理">
                <el-table
@@ -66,7 +104,7 @@
                 @current-change="handleCurrentChange"
                 :current-page="currentPage"
                 :page-sizes="[2, 4, 6, 8,10]"
-                :page-size="2"
+                :page-size="pageSize"
                 layout="total, sizes, prev, pager, next, jumper"
                 :total='totalCount' style="margin-top:15px;">
               </el-pagination>
@@ -103,44 +141,7 @@
               </el-dialog>
          </el-tab-pane>
          </el-tabs>
-
        </el-col>
-      <el-col :span="5" class="filterBlock">
-          <el-col class="filterHeader">
-            <i class="el-icon-search" style="color: #2D4FA7; font-size: 24px; margin-right: 2px;"></i> 筛选
-          </el-col>
-          <div class="filterContent">
-            <el-col class="filterInput">
-              <el-col class="filterText">查询关键字</el-col>
-              <el-input type="text" class="form-control" placeholder="请输入关键字"></el-input>
-            </el-col>
-            <el-col  class="filterInput" >
-              <el-col class="filterText">手机号</el-col>
-              <el-input type="text" class="form-control" placeholder="请输入手机号"></el-input>
-            </el-col>
-            <el-col class="filterInput" >
-              <el-col class="filterText">时间选择</el-col>
-              <el-time-picker
-                class="form-control"
-                arrow-control
-                size=""
-                v-model="value3"
-                :picker-options="{
-                  selectableRange: '18:30:00 - 20:30:00'
-                  }"
-                placeholder="任意时间点">
-              </el-time-picker>
-            </el-col>
-            <el-col style="margin-bottom: 30px; margin-top: 20px;">
-              <el-button class="btn btn-info filter  fr" style=" margin-left:15px; ">
-                <span class="glyphicon glyphicon-filter">筛选</span>
-              </el-button>
-              <el-button class="btn btn-info filter fr">
-                <span class="glyphicon glyphicon-filter">重置</span>
-              </el-button>
-            </el-col>
-          </div>
-      </el-col>
     </el-row>
   </div>
 </template>
@@ -164,27 +165,20 @@
           parameter : {
             WToken:this.token,
             N:"",
-            Rows:2
-          }
+            Rows:this.pageSize
+          },
+          pageSize: 2,
+          pageNum:''
         }
       },
       mounted(){
         this.GetDevice({
           WToken:this.token,
           N:"",
-          Rows:2
+          Rows:this.pageSize
         });
       },
       methods: {
-        toggleSelection(rows) {
-          if (rows) {
-            rows.forEach(row => {
-              this.$refs.multipleTable.toggleRowSelection(row);
-            });
-          } else {
-            this.$refs.multipleTable.clearSelection();
-          }
-        },
         handleSelectionChange(val) {
           this.multipleSelection = val;
         },
@@ -192,14 +186,19 @@
           console.log(tab, event);
         },
         handleSizeChange(val) {
-          console.log(`每页 ${val} 条`);
-        },
-        handleCurrentChange(val) {
-          console.log(`当前页: ${val}`);
+          this.pageSize = val;
           this.GetDevice({
             WToken:this.token,
-            N:val,
-            Rows:2
+            N:this.pageNum,
+            Rows:this.pageSize
+          });
+        },
+        handleCurrentChange(val) {
+          this.pageNum = val;
+          this.GetDevice({
+            WToken:this.token,
+            N:this.pageNum,
+            Rows:this.pageSize
           });
         },
         GetDevice(parameter) {
@@ -228,20 +227,13 @@
               return false;
             }
           }, function(result){
-            alert(result);
+             console.log(result);
           });
 
         },
         handleEdit(index, row) {
-          console.log(index)
-          console.log(row)
           this.selectTable = row;
-          // this.address.address = row.address;
           this.dialogFormVisible = true;
-          // this.selectedCategory = row.category.split('/');
-          // if (!this.categoryOptions.length) {
-          //   this.getCategory();
-          // }
         },
         upDateEngine(id) {
           this.$http.post(

@@ -1,6 +1,6 @@
 <template>
     <el-container class="myIndex">
-      <el-header class="header">车势力公众平台</el-header>
+      <el-header class="header" style="height:45px;">车势力公众平台</el-header>
       <el-container class="indexMain">
          <el-aside width="240px" style="height: 100%; background: #2c3f4d;">
          <el-menu
@@ -21,8 +21,8 @@
             <span>导航一</span>
           </template>
           <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
+            <template slot="title">团队管理</template>
+            <el-menu-item index="firstInfo">代理商列表</el-menu-item>
             <el-menu-item index="1-2">选项2</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="分组2">
@@ -36,19 +36,28 @@
         </el-submenu>
         <el-menu-item index="engine">
           <i class="el-icon-menu"></i>
-          <span slot="title">导航二</span>
+          <span slot="title">团队管理</span>
         </el-menu-item>
         <el-menu-item index="3" disabled>
           <i class="el-icon-document"></i>
           <span slot="title">导航三</span>
         </el-menu-item>
+
+       <el-submenu index="3">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>团队</span>
+          </template>
+            <el-menu-item index="firstInfo">代理商列表</el-menu-item>
+        </el-submenu>
       </el-menu>
       </el-aside>
-         <el-main>
+        <el-col>
+        <head-top></head-top>
         <keep-alive>
           <router-view></router-view>
         </keep-alive>
-      </el-main>
+      </el-col>
       </el-container>
     </el-container>
 </template>
@@ -96,7 +105,7 @@
     }
     .el-main {
       box-shadow: 0 0 10px #888 inset;
-      padding: 30px;
+      //padding: 30px;
     }
   }
 </style>

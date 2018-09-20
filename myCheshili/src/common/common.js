@@ -4,7 +4,7 @@
 import VueResource from 'vue-resource'
 export default {
   install(Vue, VueResource) {
-    Vue.prototype.url = 'http://139.199.29.196:8085/NoSense/';
+    Vue.prototype.url = 'http://192.168.0.86:8099/Store/';
     Vue.prototype.getToken = function () {
       var token = sessionStorage.getItem('__TOKEN__');
           if(token) {

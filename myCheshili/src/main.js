@@ -8,13 +8,12 @@ import axios from 'axios'
 
 Vue.config.productionTip = false
 
-
 Vue.http.headers={'Content-Type': 'application/x-www-form-urlencoded'};
-Vue.prototype.axios = axios
+Vue.prototype.axios = axios;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   components: { App },
   template: '<App/>',
-})
+});
