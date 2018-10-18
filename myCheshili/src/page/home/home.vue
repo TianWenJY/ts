@@ -1,6 +1,6 @@
 <template>
   <div>
-    <head-top></head-top>  
+    <bread-crumb></bread-crumb>  
     <section class="data_section">
       <header class="section_title">数据统计</header>
       <el-row :gutter="20" style="margin-bottom: 10px;">
@@ -23,9 +23,12 @@
 </template>
 
 <script>
-    import headTop from '../../components/headTop'
+    import breadCrumb from '../../components/breadCrumb'
     export default {
-        name: "home",
+        name: "Home",
+        components: {
+        breadCrumb
+      }
     }
 </script>
 

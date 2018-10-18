@@ -2,21 +2,21 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import Router from 'vue-router'
 import setMenu from '@/components/setMenu'
-import Login from '../page/login.vue'
+import Login from '@/page/login.vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import Index from '../page/index/index.vue'
-import home from '../page/home/home.vue'
-import role from '../page/role/role.vue'
-import engine from '../page/engine/engine.vue'
-import addEngine from '../page/addEngine.vue'
+import Index from '@/page/index/index.vue'
+import Home from '@/page/home/home.vue'
+import role from '@/page/role/role.vue'
+import engine from '@/page/engine/engine.vue'
+import addEngine from '@/page/addEngine.vue'
 import setting from '../page/setting/setting.vue'
-import firstInfo from '../page/firstInfo.vue'
-import common from '../common/common.css'
-import commonJs from '../common/common.js'
-import AreaCode from '../page/areacodeList.vue'
-import TlUser from '../page/TLUser.vue'
-import textFather from '../page/textFather.vue'
+import firstInfo from '@/page/firstInfo.vue'
+import common from '@/common/common.css'
+import commonJs from '@/common/common.js'
+import AreaCode from '@/page/areacodeList.vue'
+import TlUser from '@/page/TLUser.vue'
+import textFather from '@/page/textFather.vue'
 Vue.use(VueResource);
 Vue.use(ElementUI);
 Vue.use(Router);
@@ -27,7 +27,7 @@ Vue.use(commonJs);
 export default new Router({
   routes: [
     {
-      path: '/login',
+      path: '/',
       name: 'Login',
       component: Login
     },
@@ -37,7 +37,7 @@ export default new Router({
       component: Index,
       children: [{
         path: '',
-        component: home,
+        component: Home,
         meta: ['进出车记录', '进车记录'],
       },{
       path: '/engine',
@@ -73,6 +73,10 @@ export default new Router({
         meta: ['通联支付','商户列表']
       }
     ]
+    },
+    {
+      path: '*',
+      redirect:'/'
     }
   ]
 })

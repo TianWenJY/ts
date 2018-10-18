@@ -21,6 +21,35 @@ export default {
     },
       Vue.prototype.setToken = function (token) {
         sessionStorage.setItem('__TOKEN__', token)
+      },
+      Vue.prototype.post = function (url, params,cb) {
+        let token = this.getToken();
+        if (typeof String.prototype.startsWith != 'function') {
+          String.prototype.startsWith = function (prefix){
+              return this.slice(0, prefix.length) === prefix;
+          };
       }
+      if (token) {
+          if (!url.startsWith(this.config.url)) {
+              url = this.config.url + url;
+          }
+          if (!params.Token) {
+              $.extend(data, {
+                  WToken: token
+              });
+          }
+      return new Promise((resolve, reject) => {
+        Vue.http.post(
+          url,
+          params,
+          {emulateJSON: true}
+        )
+          .then(cb)
+          .catch((err) => {
+            reject(err);
+          });
+      });
+      }
+    }
   }
 }

@@ -14,3 +14,24 @@ ul, ol { list-style: none; }
 .clear{clear: both;}
 .fl{ float: left; }
 .fr{float: right;}
+/* css reset end */
+/*修改chrome滚动条样式 start*/
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+::-webkit-scrollbar-track-piece {
+    background-color: rgba(0,0,0,0.2);
+    -webkit-border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:vertical {
+    height: 8px;
+    background-color: rgba(0,0,0,0.5);
+    -webkit-border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+    width: 8px;
+    background-color: rgba(0,0,0,0.5);
+    -webkit-border-radius: 8px;
+}
+/*修改chrome滚动条样式 end*/

@@ -210,7 +210,6 @@
           ).then(function(result){
             if(result.body.Status == 0) {
               _this.deviceList = result.body.Data.Rows;
-              console.log(_this.totalCount)
             }else if(result.body.Status == -1){
               this.$notify.error({
                 title: '登录失效',

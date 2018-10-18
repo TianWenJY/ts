@@ -2,7 +2,7 @@
     <el-container class="myIndex">
       <el-header class="header" style="height:45px;">车势力公众平台</el-header>
       <el-container class="indexMain">
-         <el-aside width="240px" style="height: 100%; background: #2c3f4d;">
+         <el-aside width="240px" class="aside">
          <el-menu
         :default-active="defaultActive"
         class="el-menu-vertical-demo"
@@ -107,6 +107,12 @@
      }
     .indexMain {
       height: 100%;
+      .aside {
+        height: 100%; 
+        background: #2c3f4d; 
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
     }
     .el-main {
       box-shadow: 0 0 10px #888 inset;
