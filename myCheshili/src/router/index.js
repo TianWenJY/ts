@@ -7,7 +7,6 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Index from '@/page/index/index.vue'
 import Home from '@/page/home/home.vue'
-import role from '@/page/role/role.vue'
 import engine from '@/page/engine/engine.vue'
 import addEngine from '@/page/addEngine.vue'
 import setting from '../page/setting/setting.vue'
@@ -17,6 +16,8 @@ import commonJs from '@/common/common.js'
 import AreaCode from '@/page/areacodeList.vue'
 import TlUser from '@/page/TLUser.vue'
 import textFather from '@/page/textFather.vue'
+import certification from '@/page/certification.vue'
+import Role from '@/page/role.vue'
 Vue.use(VueResource);
 Vue.use(ElementUI);
 Vue.use(Router);
@@ -52,10 +53,6 @@ export default new Router({
         component: setMenu,
         meta: ['菜单设置'],
       },{
-        path: '/role',
-        component: role,
-        meta: ['菜单设置'],
-      },{
         path: '/firstInfo',
         component: firstInfo,
         meta: ['团队管理','一级代理商']
@@ -71,6 +68,16 @@ export default new Router({
         path: '/textFather',
         component: textFather,
         meta: ['通联支付','商户列表']
+      }
+      ,{
+        path: '/certification',
+        component: certification,
+        meta: ['实名管理','实名认证']
+      },
+      {
+        path: '/role',
+        component: Role,
+        meta: ['角色设置','管理员管理']
       }
     ]
     },

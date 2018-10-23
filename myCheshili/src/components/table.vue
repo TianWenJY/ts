@@ -41,7 +41,7 @@
                 layout="total, sizes, prev, pager, next, jumper"
                 :total='totalCount' style="margin-top:15px;">
               </el-pagination> 
-         </el-tab-pane>
+         <!-- </el-tab-pane> -->
         </el-tabs>
 </template>
 

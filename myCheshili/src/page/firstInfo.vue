@@ -4,9 +4,9 @@
      <el-row class="containt">
            <el-row>
       <el-col class="filterBlock">
-<!--           <el-col class="filterHeader">
+          <el-col class="filterHeader">
             <i class="el-icon-search" style="color: #2D4FA7; font-size: 24px; margin-right: 2px;"></i> 筛选
-          </el-col> -->
+          </el-col>
           <el-row class="filterContent"   :gutter="20">
             <el-col class="filterInput"  :span="4">
               <el-col class="filterText">查询关键字</el-col>
@@ -47,7 +47,6 @@
     <el-row>
        <el-col :span="24">
          <el-tabs v-model="activeTag" type="card" @tab-click="handleClick">
-            <!-- <el-tab-pane  class="table" name="first" label="用户管理"> -->
                <el-table
              ref="multipleTable" border
              :data="deviceList"
@@ -58,11 +57,11 @@
                type="selection"
                >
              </el-table-column>
-             <el-table-column
+             <!-- <el-table-column
                label="用户昵称"
                >
                <template slot-scope="scope">{{ scope.row.NickName }}</template>
-             </el-table-column>
+             </el-table-column>  -->
              <el-table-column
                  prop="Mobile"
                  label="用户手机号"
@@ -83,12 +82,19 @@
                    label="分发批次数"
                    >
                  </el-table-column>
-               <el-table-column
+               <!-- <el-table-column
                    prop="DisSum"                                                                                                                                                                                                                                                                                                   0
 
                    label="分发数量"
+                   > -->
+                <!-- </el-table-column> -->
+
+                <el-table-column
+                   prop="DisSum"
+                   label="分发数量"
                    >
                 </el-table-column>
+
                 <el-table-column
                    prop="ActSum"
                    label="激活数量"
@@ -150,7 +156,7 @@
           pageNum:''
         }
       },
-      created(){
+      mounted(){
         var _this = this;
             _this.parameter.Rows = _this.pageSize;
             _this.parameter.WToken = _this.token;
@@ -180,35 +186,29 @@
           });
         },
         GetDevice(parameter) {
-          var _this = this;
-          this.$http.post(
-            this.url+'AdminQrMobileMng/QueryFirstDispenseInfoList',
-            parameter
-           ,{emulateJSON:true}
-          ).then(function(result){
-            if(result.body.Status == 0) {
-              _this.totalCount = parseInt(result.body.Data.Count);
-              console.log(result.body.Data.Count)
-              _this.deviceList = result.body.Data.Rows;
-            }else if(result.body.Status == -1){
-              this.$notify.error({
+            var _this = this;
+             _this.post('AdminQrMobileMng/QueryFirstDispenseInfoList',parameter,
+              (res)=>{
+                if(res.body.Status == 0) {
+              _this.totalCount = parseInt(res.body.Data.Count);
+              _this.deviceList = res.body.Data.Rows;
+            }else if(res.body.Status == -1){
+              _this.$notify.error({
                 title: '登录失效',
                 message: '将进入登录页面',
                 offset: 100
               });
-              this.$router.push('/login');
+              _this.$router.push('/login');
             }else {
-              this.$notify.error({
+              _this.$notify.error({
                 title: '错误',
                 message: '请输入正确的用户名密码',
                 offset: 100
               });
               return false;
             }
-          }, function(result){
-             console.log(result);
-          });
-
+          }
+           );
         },
         handleEdit(index, row) {
           this.selectTable = row;
