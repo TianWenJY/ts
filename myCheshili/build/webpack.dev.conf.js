@@ -9,6 +9,16 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const express = require('express')
+const app = express()
+var textForm = require('../src/moke/text.json')
+const roleList = require('../src/moke/role.json')
+const allMenu = require('../src/moke/allMenuData.json')
+const applyStore = require('../src/moke/applyStore.json')
+const apply = require('../src/moke/apply.json')
+// var appData = require('../data.json')
+var apiRoutes = express.Router()
+app.use('/api',apiRoutes)
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -42,6 +52,38 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
+    },
+    before(app) {
+      app.post('/textForm',function(req,res) {
+         res.json({
+          Status:0,
+          Data:textForm
+         })
+      })
+      app.post('/roleList',function(req,res) {
+        res.json({
+         Status:0,
+         Data:roleList
+        })
+     })
+     app.post('/allMenu',function(req,res) {
+      res.json({
+       Status:0,
+       Data:allMenu
+      })
+   })
+   app.post('/applyStore',function(req,res) {
+    res.json({
+     Status:0,
+     Data:allMenu
+    })
+ })
+ app.post('/apply',function(req,res) {
+  res.json({
+   Status:0,
+   Data:apply
+  })
+})
     }
   },
   plugins: [

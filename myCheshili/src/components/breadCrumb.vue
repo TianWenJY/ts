@@ -16,7 +16,7 @@
 
 <style lang="less">
 	.header_container{
-		height: 60px;
+		height: 55px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;

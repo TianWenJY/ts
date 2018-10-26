@@ -50,7 +50,20 @@ export default {
             reject(err);
           });
       });
-    },
+    },     
+     Vue.prototype.tpost = function (url, params,func) {
+    return new Promise((resolve, reject) => {
+      this.$http.post(
+        url,
+        params,
+        {emulateJSON: true}
+      )
+        .then(func)
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
     Vue.prototype.get10Time = function (time) {
       if(time == '') {
         return  ''

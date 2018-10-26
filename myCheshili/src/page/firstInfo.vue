@@ -268,78 +268,78 @@
     }
 </script>
 <style lang="less">
-.containt {
-  padding: 20px;
-  padding-top: 0;
-}
-  .filterBlock {
-    margin-bottom: 20px;
-    border: 2px solid #eee;
-    box-sizing: border-box;
-    .filterHeader {
-      background-color: #FCFCFC;
-      padding: 0 14px;
-      height: 40px;
-      line-height: 40px;
-      border-bottom: 1px solid #EBEBEB;
-      font-size: 16px;
-    }
-    .filterContent {
-      padding: 8px 16px 16px 16px;
-      .filterInput {
-        //box-shadow: 0 0 1.5px #eee;
-        .filterText {
-          margin-bottom: 6px;
-        }
-      }
-      .filterFirst {
-        margin-right: 15px;
-      }
-    }
-  }
-  .breadStyle {
-    height: 50px;
-  }
-  .tableTop {
-    height: 40px;
-    line-height: 40px;
-    font-size:0;
-    :last-child {
-      border-right: 2px solid #eee;
-    }
-  }
-  .table {
-    padding: 32px;
-    border: 2px solid #eee;
-    border-top: 0;
-    box-shadow: 0 0 1.5px #eee;
-    .el-table__header-wrapper {
-      /*border-top: 1px solid #ebeef5;*/
-    }
-  }
-  .el-tabs__header {
-     margin: 0;
-  }
-  .el-tabs__item {
-    width: 150px;
-    text-align: center;
-    font-size: 20px;
-  }
-  .el-tabs__item.is-active {
-    border-top: 2px solid #2D4FA7;
-  }
-  .el-tabs--card>.el-tabs__header {
-    border-bottom: 1px solid #e4e7ed;
-    box-shadow: 0 0 1.5px #eee;
-  }
-  .el-table th {
-    background: #FAFAFA;
-  }
-  .el-date-editor.el-input, .el-date-editor.el-input__inner {
-     width: 100%;
-  }
-  .el-dialog__title {
-    font-weight: 700;
-  }
+// .containt {
+//   padding: 20px;
+//   padding-top: 0;
+// }
+//   .filterBlock {
+//     margin-bottom: 20px;
+//     border: 2px solid #eee;
+//     box-sizing: border-box;
+//     .filterHeader {
+//       background-color: #FCFCFC;
+//       padding: 0 14px;
+//       height: 40px;
+//       line-height: 40px;
+//       border-bottom: 1px solid #EBEBEB;
+//       font-size: 16px;
+//     }
+//     .filterContent {
+//       padding: 8px 16px 16px 16px;
+//       .filterInput {
+//         //box-shadow: 0 0 1.5px #eee;
+//         .filterText {
+//           margin-bottom: 6px;
+//         }
+//       }
+//       .filterFirst {
+//         margin-right: 15px;
+//       }
+//     }
+//   }
+//   .breadStyle {
+//     height: 50px;
+//   }
+//   .tableTop {
+//     height: 40px;
+//     line-height: 40px;
+//     font-size:0;
+//     :last-child {
+//       border-right: 2px solid #eee;
+//     }
+//   }
+//   .table {
+//     padding: 32px;
+//     border: 2px solid #eee;
+//     border-top: 0;
+//     box-shadow: 0 0 1.5px #eee;
+//     .el-table__header-wrapper {
+//       /*border-top: 1px solid #ebeef5;*/
+//     }
+//   }
+//   .el-tabs__header {
+//      margin: 0;
+//   }
+//   .el-tabs__item {
+//     width: 150px;
+//     text-align: center;
+//     font-size: 20px;
+//   }
+//   .el-tabs__item.is-active {
+//     border-top: 2px solid #2D4FA7;
+//   }
+//   .el-tabs--card>.el-tabs__header {
+//     border-bottom: 1px solid #e4e7ed;
+//     box-shadow: 0 0 1.5px #eee;
+//   }
+//   .el-table th {
+//     background: #FAFAFA;
+//   }
+//   .el-date-editor.el-input, .el-date-editor.el-input__inner {
+//      width: 100%;
+//   }
+//   .el-dialog__title {
+//     font-weight: 700;
+//   }
 
 </style>

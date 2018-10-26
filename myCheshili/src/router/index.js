@@ -18,6 +18,10 @@ import TlUser from '@/page/TLUser.vue'
 import textFather from '@/page/textFather.vue'
 import certification from '@/page/certification.vue'
 import Role from '@/page/role.vue'
+import Menu from '@/page/Menu.vue'
+import rolePersimion from '@/page/rolePersimion.vue'
+import Staff from '@/page/staff.vue'
+import ApplyStore from '@/page/applystore.vue'
 Vue.use(VueResource);
 Vue.use(ElementUI);
 Vue.use(Router);
@@ -77,7 +81,27 @@ export default new Router({
       {
         path: '/role',
         component: Role,
-        meta: ['角色设置','管理员管理']
+        meta: ['系统设置','管理员管理']
+      },
+      {
+        path: '/menu',
+        component: Menu,
+        meta: ['系统设置','菜单管理']
+      },
+      {
+        path: '/rolepersimion',
+        component: rolePersimion,
+        meta: ['系统设置','角色权限']
+      },
+      {
+        path: '/staff',
+        component: Staff,
+        meta: ['门店管理','员工一览']
+      },
+      {
+        path: '/applystore',
+        component: ApplyStore,
+        meta: ['门店管理','员工一览']
       }
     ]
     },
